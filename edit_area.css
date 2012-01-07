@@ -18,8 +18,8 @@ body, html, table, form, textarea{
 
 #result{
 	z-index: 4; 
-	overflow-x: auto;
-	overflow-y: scroll;
+	overflow-x: auto;  /* not CSS2.1 */
+	overflow-y: scroll;  /* not CSS2.1 */
 	border-top: solid #888 1px;
 	border-bottom: solid #888 1px;
 	position: relative;
@@ -142,9 +142,10 @@ pre{
 	padding: 0;
 }
 
-.hidden{
+.hidden
+{
 	opacity: 0.2; 
-	filter:alpha(opacity=20);
+	/* filter:alpha(opacity=20); */
 }
 
 #result .edit_area_cursor{
@@ -353,8 +354,8 @@ table.statusbar{
 }
 
 .editAreaButtonDisabled {
-	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=30);
-	-moz-opacity:0.3;
+	/* filter:progid:DXImageTransform.Microsoft.Alpha(opacity=30); */
+	/* -moz-opacity:0.3; */
 	opacity: 0.3;
 	border: 1px solid #F0F0EE !important;
 	cursor: pointer;

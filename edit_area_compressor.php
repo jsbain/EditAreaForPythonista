@@ -2,7 +2,7 @@
 	/******
 	 *
 	 *	EditArea PHP compressor
-	 * 	Developped by Christophe Dolivet
+	 * 	Developed by Christophe Dolivet
 	 *	Released under LGPL, Apache and BSD licenses
 	 *	v1.1.3 (2007/01/18)	 
 	 *
@@ -10,21 +10,22 @@
 	
 	// CONFIG
 	$param['cache_duration']= 3600 * 24 * 10;		// 10 days util client cache expires
-	$param['compress'] = true;						// enable the code compression, should be activated but it can be usefull to desactivate it for easier error retrieving (true or false)
+	$param['compress'] = true;						// Enable the code compression, should be activated but it can be useful to deactivate it for easier error diagnostics (true or false)
 	$param['debug'] = false;						// Enable this option if you need debuging info
-	$param['use_disk_cache']= true;					// If you enable this option gzip files will be cached on disk.
+	$param['use_disk_cache'] = true;				// If you enable this option gzip files will be cached on disk.
 	$param['use_gzip']= true;						// Enable gzip compression
 	// END CONFIG
 	
-	$compressor= new Compressor($param);
+	$compressor = new Compressor($param);
 	
-	class Compressor{
-	
-		
-		function compressor($param)
-		{
-			$this->__construct($param);
-		}
+	class Compressor
+	{
+		//function compressor($param)
+		//{
+		//	$this->__construct($param);
+		//}
+		//
+		//--> Strict Standards: Redefining already defined constructor for class Compressor
 		
 		function __construct($param)
 		{
@@ -33,11 +34,14 @@
 			$this->param= $param;
 			$this->script_list="";
 			$this->path= dirname(__FILE__)."/";
-			if(isset($_GET['plugins'])){
+			if(isset($_GET['plugins']))
+			{
 				$this->load_all_plugins= true;
 				$this->full_cache_file= $this->path."edit_area_full_with_plugins.js";
 				$this->gzip_cache_file= $this->path."edit_area_full_with_plugins.gz";
-			}else{
+			}
+			else
+			{
 				$this->load_all_plugins= false;
 				$this->full_cache_file= $this->path."edit_area_full.js";
 				$this->gzip_cache_file= $this->path."edit_area_full.gz";
