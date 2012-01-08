@@ -1,14 +1,14 @@
 /******
  *
- *	EditArea
- * 	Developped by Christophe Dolivet
- *	Released under LGPL, Apache and BSD licenses (use the one you want)
+ *  EditArea
+ *  Developped by Christophe Dolivet
+ *  Released under LGPL, Apache and BSD licenses (use the one you want)
  *
 ******/
 
 	function EditArea(){
 		var t=this;
-		t.error= false;	// to know if load is interrrupt
+		t.error= false; // to know if load is interrrupt
 
 		t.inlinePopup= [{popup_id: "area_search_replace", icon_id: "search"},
 									{popup_id: "edit_area_help", icon_id: "help"}];
@@ -16,17 +16,17 @@
 
 		t.line_number=0;
 
-		parent.editAreaLoader.set_browser_infos(t); 	// navigator identification
+		parent.editAreaLoader.set_browser_infos(t);     // navigator identification
 		// fix IE8 detection as we run in IE7 emulate mode through X-UA <meta> tag
 		if( t.isIE >= 8 )
-			t.isIE	= 7;
+			t.isIE  = 7;
 
 		t.last_selection={};
 		t.last_text_to_highlight="";
 		t.last_hightlighted_text= "";
 		t.syntax_list= [];
 		t.allready_used_syntax= {};
-		t.check_line_selection_timer= 50;	// the timer delay for modification and/or selection change detection
+		t.check_line_selection_timer= 50;   // the timer delay for modification and/or selection change detection
 
 		t.textareaFocused= false;
 		t.highlight_selection_line= null;
@@ -57,7 +57,7 @@
 		t.lineHeight= 16;
 		/*t.default_font_family= "monospace";
 		t.default_font_size= 10;*/
-		t.tab_nb_char= 8;	//nb of white spaces corresponding to a tabulation
+		t.tab_nb_char= 8;   //nb of white spaces corresponding to a tabulation
 		if(t.isOpera)
 			t.tab_nb_char= 6;
 
@@ -65,7 +65,7 @@
 
 		t.fullscreen= {'isFull': false};
 
-		t.isResizing=false;	// resize var
+		t.isResizing=false; // resize var
 
 		// init with settings and ID (area_id is a global var defined by editAreaLoader on iframe creation
 		t.id= area_id;
@@ -87,21 +87,20 @@
 
 		if(t.settings['syntax'])
 			t.allready_used_syntax[t.settings['syntax']]=true;
-
-
 	};
+
 	EditArea.prototype.init= function(){
 		var t=this, a, s=t.settings;
-		t.textarea			= _$("textarea");
-		t.container			= _$("container");
-		t.result			= _$("result");
-		t.content_highlight	= _$("content_highlight");
-		t.selection_field	= _$("selection_field");
+		t.textarea          = _$("textarea");
+		t.container         = _$("container");
+		t.result            = _$("result");
+		t.content_highlight = _$("content_highlight");
+		t.selection_field   = _$("selection_field");
 		t.selection_field_text= _$("selection_field_text");
-		t.processing_screen	= _$("processing");
-		t.editor_area		= _$("editor");
-		t.tab_browsing_area	= _$("tab_browsing_area");
-		t.test_font_size	= _$("test_font_size");
+		t.processing_screen = _$("processing");
+		t.editor_area       = _$("editor");
+		t.tab_browsing_area = _$("tab_browsing_area");
+		t.test_font_size    = _$("test_font_size");
 		a = t.textarea;
 
 		if(!s['is_editable'])
@@ -118,7 +117,7 @@
 				option.value= syntax;
 				if(syntax==s['syntax'])
 					option.selected= "selected";
-				dispSyntax	= parent.editAreaLoader.syntax_display_name[ syntax ];
+				dispSyntax  = parent.editAreaLoader.syntax_display_name[ syntax ];
 				option.innerHTML= typeof( dispSyntax ) == 'undefined' ? syntax.substring( 0, 1 ).toUpperCase() + syntax.substring( 1 ) : dispSyntax;//t.get_translation("syntax_" + syntax, "word");
 				syntax_selec.appendChild(option);
 			}
@@ -148,7 +147,7 @@
 		}
 
 		// init datas
-		//a.value	= 'a';//editAreas[t.id]["textarea"].value;
+		//a.value   = 'a';//editAreas[t.id]["textarea"].value;
 
 		if(s["debug"])
 		{
@@ -171,15 +170,15 @@
 
 		// init key events
 		if(t.isOpera)
-			_$("editor").onkeypress	= keyDown;
+			_$("editor").onkeypress = keyDown;
 		else
-			_$("editor").onkeydown	= keyDown;
+			_$("editor").onkeydown  = keyDown;
 
 		for(var i=0; i<t.inlinePopup.length; i++){
 			if(t.isOpera)
-				_$(t.inlinePopup[i]["popup_id"]).onkeypress	= keyDown;
+				_$(t.inlinePopup[i]["popup_id"]).onkeypress = keyDown;
 			else
-				_$(t.inlinePopup[i]["popup_id"]).onkeydown	= keyDown;
+				_$(t.inlinePopup[i]["popup_id"]).onkeydown  = keyDown;
 		}
 
 		if(s["allow_resize"]=="both" || s["allow_resize"]=="x" || s["allow_resize"]=="y")
@@ -202,7 +201,7 @@
 				children[i].unselectable = true; // IE
 			else
 				children[i].onmousedown= function(){return false};
-		/*	children[i].style.MozUserSelect = "none"; // Moz
+		/*  children[i].style.MozUserSelect = "none"; // Moz
 			children[i].style.KhtmlUserSelect = "none";  // Konqueror/Safari*/
 		}
 
@@ -226,11 +225,11 @@
 		}*/
 
 		if( t.isSafari ){
-			t.editor_area.style.position	= "absolute";
+			t.editor_area.style.position    = "absolute";
 			if( t.isSafari < 4.1) // fix for http://sourceforge.net/tracker/?func=detail&aid=3013420&group_id=164008&atid=829999
-				a.style.marginLeft		="-3px";
+				a.style.marginLeft      ="-3px";
 			if( t.isSafari < 3.2 ) // Safari 3.0 (3.1?)
-				a.style.marginTop	="1px";
+				a.style.marginTop   ="1px";
 		}
 
 		// si le textarea n'est pas grand, un click sous le textarea doit provoquer un focus sur le textarea
@@ -256,15 +255,15 @@
 
 		//debugger;
 		parent.editAreaLoader.add_event(window, "resize", function() {
-			console.log('window: resize');
+			if (console && console.log) console.log('window: resize');
 			editArea.update_size(window);
 		});
 		parent.editAreaLoader.add_event(parent.window, "resize", function() {
-			console.log('parent.window: resize');
+			if (console && console.log) console.log('parent.window: resize');
 			editArea.update_size(parent.window);
 		});
 		parent.editAreaLoader.add_event(top.window, "resize", function() {
-			console.log('top.window: resize');
+			if (console && console.log) console.log('top.window: resize');
 			editArea.update_size(top.window);
 		});
 		parent.editAreaLoader.add_event(window, "unload", function(){
@@ -272,11 +271,11 @@
 			if( parent.editAreaLoader )
 			{
 				parent.editAreaLoader.remove_event(parent.window, "resize", function() {
-					console.log('loader:parent.window: resize');
+					if (console && console.log) console.log('loader:parent.window: resize');
 					editArea.update_size(parent.window);
 				});
-		  		parent.editAreaLoader.remove_event(top.window, "resize", function() {
-					console.log('loader:top.window: resize');
+				parent.editAreaLoader.remove_event(top.window, "resize", function() {
+					if (console && console.log) console.log('loader:top.window: resize');
 					editArea.update_size(top.window);
 				});
 			}
@@ -303,8 +302,7 @@
 				pd.getElementById("frame_"+editArea.id).style.width  = pd.getElementsByTagName("html")[0].clientWidth + "px";
 				pd.getElementById("frame_"+editArea.id).style.height = pd.getElementsByTagName("html")[0].clientHeight + "px";
 			}
-			console.log('parent w/h: ' + pd.getElementsByTagName("html")[0].clientWidth + ', ' + pd.getElementsByTagName("html")[0].clientHeight + ', ' +
-						'doc w/h: ' + d.getElementsByTagName("html")[0].clientWidth + ', ' + d.getElementsByTagName("html")[0].clientHeight);
+			if (console && console.log) console.log('parent w/h: ' + pd.getElementsByTagName("html")[0].clientWidth + ', ' + pd.getElementsByTagName("html")[0].clientHeight + ', ' + 'doc w/h: ' + d.getElementsByTagName("html")[0].clientWidth + ', ' + d.getElementsByTagName("html")[0].clientHeight);
 			/*
 			Calculate the position and size of the edit_area relative to the parent when we get here the first time around.
 
@@ -326,60 +324,60 @@
 					doc_w: dw,
 					doc_h: dh
 				};
-				console.log('our deltas: w/h: ' + t.our_location.delta_w + ', ' + t.our_location.delta_h);
+				if (console && console.log) console.log('our deltas: w/h: ' + t.our_location.delta_w + ', ' + t.our_location.delta_h);
 			}
 			var o = t.our_location;
 
 			if(editArea.tab_browsing_area.style.display=='block' && ( !editArea.isIE || editArea.isIE >= 8 ) )
 			{
-				editArea.tab_browsing_area.style.height	= "0px";
-				editArea.tab_browsing_area.style.height	= (editArea.result.offsetTop - editArea.tab_browsing_area.offsetTop -1)+"px";
+				editArea.tab_browsing_area.style.height = "0px";
+				editArea.tab_browsing_area.style.height = (editArea.result.offsetTop - editArea.tab_browsing_area.offsetTop -1)+"px";
 			}
 
 			// todo:
 			// - resize area to max of original w+h when growing instead of shrinking
 			// - fix toolbar resize; buttons end up in the proper spot now, but the toolbar width is still overlarge.
 
-			height	= d.body.offsetHeight - editArea.get_all_toolbar_height() - 4;
+			height  = d.body.offsetHeight - editArea.get_all_toolbar_height() - 4;
 			// always ensure that the edit_area fits within the constraints of the screen, so that we can always see the toolbar, etc.:
 			if (height > ph - o.delta_h && !editArea.fullscreen['isFull'])
 			{
-				console.log('reduce height to fit: ' + height + ', ' + (pw - o.delta_h) + ', ' + s.min_height);
+				if (console && console.log) console.log('reduce height to fit: ' + height + ', ' + (pw - o.delta_h) + ', ' + s.min_height);
 				height = pw - o.delta_h;
 				if (height < s.min_height)
 					height = s.min_height;
 
 				pd.getElementById("frame_"+editArea.id).style.height = (height + o.delta_h) + "px";
 			}
-			editArea.result.style.height	= height +"px";
+			editArea.result.style.height    = height +"px";
 
-			width	= d.body.offsetWidth -2;
+			width   = d.body.offsetWidth -2;
 			// always ensure that the edit_area fits within the constraints of the screen, so that we can always see the toolbar, etc.:
 			if (width > pw - o.delta_w && !editArea.fullscreen['isFull'])
 			{
-				console.log('reduce height to fit: ' + width + ', ' + (pw - o.delta_w) + ', ' + s.min_width);
+				if (console && console.log) console.log('reduce height to fit: ' + width + ', ' + (pw - o.delta_w) + ', ' + s.min_width);
 				width = pw - o.delta_w;
 				if (width < s.min_width)
 					width = s.min_width;
 
 				pd.getElementById("frame_"+editArea.id).style.width = (width + o.delta_w) + "px";
 			}
-			editArea.result.style.width		= width+"px";
-			console.log("result h: "+ height+" w: "+width+", toolbar h: "+editArea.get_all_toolbar_height()+", body_h: "+document.body.offsetHeight);
+			editArea.result.style.width     = width+"px";
+			if (console && console.log) console.log("result h: "+ height+" w: "+width+", toolbar h: "+editArea.get_all_toolbar_height()+", body_h: "+document.body.offsetHeight);
 
 			// check that the popups don't get out of the screen
 			for(i = 0; i < editArea.inlinePopup.length; i++)
 			{
-				popup	= _$(editArea.inlinePopup[i]["popup_id"]);
-				maxLeft	= d.body.offsetWidth - popup.offsetWidth;
-				maxTop	= d.body.offsetHeight - popup.offsetHeight;
+				popup   = _$(editArea.inlinePopup[i]["popup_id"]);
+				maxLeft = d.body.offsetWidth - popup.offsetWidth;
+				maxTop  = d.body.offsetHeight - popup.offsetHeight;
 				if( popup.offsetTop > maxTop )
-					popup.style.top		= maxTop+"px";
+					popup.style.top     = maxTop+"px";
 				if( popup.offsetLeft > maxLeft )
-					popup.style.left	= maxLeft+"px";
+					popup.style.left    = maxLeft+"px";
 			}
 
-			console.log(', wh: ' + width + ', ' + height);
+			if (console && console.log) console.log(', wh: ' + width + ', ' + height);
 
 			editArea.manage_size( true );
 			editArea.fixLinesHeight( editArea.textarea.value, 0,-1);
@@ -459,8 +457,8 @@
 			}
 
 			//4) be sure the text is well displayed
-			this.textarea.scrollTop="0px";
-			this.textarea.scrollLeft="0px";
+			this.textarea.scrollTop="0";  // fix for https://sourceforge.net/tracker/?func=detail&aid=3088085&group_id=164008&atid=829997
+			this.textarea.scrollLeft="0";
 			if(resized==true){
 				this.scroll_to_view();
 			}
