@@ -145,10 +145,10 @@ pre{
 .hidden
 {
 	/*
-	with Safari, this produces a eye-watering 'echo', hence we dial down the opacity to 0.0:
+	with Safari, this produces an eye-watering 'echo'
 	*/
 	opacity: 0.2;
-	/* filter:alpha(opacity=20);  -- the CCMS Combiner will take care of this by replacing the 'opacity' line with the proper MSIE line when needs must. */
+	filter:alpha(opacity=20);
 }
 
 #result .edit_area_cursor{

@@ -292,7 +292,7 @@
 
 
 	//called by the toggle_on
-	EditArea.prototype.update_size= function(opt_win){
+	EditArea.prototype.update_size= function(){
 		var d=document,pd=parent.document,height,width,popup,maxLeft,maxTop;
 
 		//if (typeof console !== 'undefined' && console.log) console.log('edit_area:resize');

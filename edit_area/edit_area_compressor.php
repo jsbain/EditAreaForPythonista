@@ -21,7 +21,7 @@
 	errors are due to our hack to help bash/sh kickstart the PHP interpreter after all,
 	which is a bit convoluted as the shebang trick cannot happen for it would output
 	the shebang line with the generated JavaScript when the script is executed by
-	a web server. We don't that to happen, so we tolerate the error reports when running
+	a web server. We don't want that to happen, so we tolerate the error reports when running
 	in a UNIX shell environment.
 */
 
@@ -52,7 +52,7 @@ if (0) // if (1) when you need to diagnose your environment
 
 /*
 only run the compressor in here when executed from the commandline; otherwise we'll only
-define the compressor class and wait for the other code out there to call us:
+define the compressor class and wait for the user code out there to call us:
 
 Tests turn out that $_SERVER['SESSIONNAME'] == 'Console' only on Windows machines, while
 UNIX boxes don't need to present $_ENV['SHELL']. Hence this check to see whether we're
@@ -81,13 +81,13 @@ if (!empty($argv[0]) && stristr($argv[0], '.php') !== false &&
 {
 	// CONFIG
 	$param['cache_duration'] = 3600 * 24 * 10;      // 10 days util client cache expires
-	$param['compress'] = false;                 // Enable the code compression, should be activated but it can be useful to deactivate it for easier error diagnostics (true or false)
+	$param['compress'] = false;                     // Enable the code compression, should be activated but it can be useful to deactivate it for easier error diagnostics (true or false)
 	$param['debug'] = false;                        // Enable this option if you need debugging info
 	$param['use_disk_cache'] = true;                // If you enable this option gzip files will be cached on disk.
 	$param['use_gzip']= false;                      // Enable gzip compression
 	$param['plugins'] = true; // isset($_GET['plugins']);    Include plugins in the compressed/flattened JS output.
-	$param['echo2stdout'] = false;                  // Output generated JS to stdout; alternative is to store it in the object for later retrieval.
-	$param['include_langs_and_syntaxes'] = true;    // Set to FALSE for backwards compatibility: do not include the language files and syntax definitions in the flattened output.
+	$param['echo2stdout'] = false;                  // Output generated JS to stdout; alternative is to store it in the object for later retrieval through any of the get_flattened*() methods.
+	$param['include_langs_and_syntaxes'] = true;    // Set to FALSE for backwards compatibility == do not include the language files and syntax definitions in the flattened output.
 	// END CONFIG
 
 	for ($i = 1; $i < $argc; $i++)
