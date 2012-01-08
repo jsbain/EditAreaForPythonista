@@ -427,14 +427,14 @@ table.statusbar{
 }
 
 #tab_browsing_list a span {
-	display: block;
-	color: #000;
-	background: #ECE9D8;
-	border: 1px solid #888;
-	border-width: 1px 1px 0;
-	text-align: center;
-	padding: 2px 2px 1px 4px;
-	position: relative; /*IE 6 hack */
+	display: block; 
+	color: #000; 
+	background: #ECE9D8; 
+	border:	1px solid #888; 
+	border-width: 1px 1px 0; 
+	text-align: center; 
+	padding: 2px 2px 1px 4px; 
+	position: relative;	/*IE 6 hack */
 }
 
 #tab_browsing_list a b {

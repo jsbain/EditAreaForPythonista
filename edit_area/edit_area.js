@@ -147,7 +147,7 @@
 		}
 
 		// init datas
-		//a.value   = 'a';//editAreas[t.id]["textarea"].value;
+		//a.value	= 'a';//editAreas[t.id]["textarea"].value;
 
 		if(s["debug"])
 		{
