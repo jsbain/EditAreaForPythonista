@@ -1,3 +1,27 @@
+**** dev ****
+- make sure in the template that MSIE always is running in its regular mode (edge) instead of some forced IE7 compatibility mode.
+- fix compressor to only include those files which actually /end/ with the suffix '.js' -- having a few .js.bak files in there during development was really screwing things up!
+- make sure /everything/ is minified: added minification to the flattened/compressed language and syntax files' sections too
+- added $param['include_langs_and_syntaxes'] -- Set to FALSE for backwards compatibility: do not include the language files and syntax definitions in the flattened output.
+- further browser-portability fixes 
+- added $param['ignore_unsupported_syntax'] option, so unsupported settings.syntax values do not b0rk the edit_area control.
+- applied fix for http://sourceforge.net/tracker/?func=detail&aid=3196666&group_id=164008&atid=829997
+- applied fix for http://sourceforge.net/tracker/?func=detail&aid=3033375&group_id=164008&atid=829999
+- applied fix for http://sourceforge.net/tracker/?func=detail&aid=3179689&group_id=164008&atid=829999
+- applied fix for http://sourceforge.net/tracker/?func=detail&aid=3137461&group_id=164008&atid=829999
+- applied fix for https://sourceforge.net/tracker/?func=detail&aid=3088085&group_id=164008&atid=829997
+- applied fix for http://sourceforge.net/tracker/?func=detail&aid=3013420&group_id=164008&atid=829999
+- patch applied: https://sourceforge.net/tracker/?func=detail&aid=3107951&group_id=164008&atid=829999
+- augmented edit_area_compressor to allow it to produce a flattened/minified edit_area JS source as a string and not necessarily produce the edit_area_full.js and/or edit_area_full_with_plugins.js *files* as a 'side effect': when you do your own caching/merging/postprocessing, you really don't need/want those!
+- param['use_disk_cache']: select whether you want the edit_area_full.js and/or edit_area_full_with_plugins.js *files* output side effect when invoking the compressor.
+- make edit_area editor windows behave nicely when resizing the screen / windows: call member function update_size() from your custom resize event handler to make it so.
+- augmented the edit_area compressor to generate both 'full' and 'full_with_plugins' from the (UNIX) commandline; also turned off edit_area custom compression for now: the GZIPping should really be handled by your web server (e.g. apache2)
+- PHP Compressor is only EXECUTED when run from the console (or crontab); when the PHP script is loaded in a regular web server environment, only the class *definition* is obtained; the caller is then free to invoke the Compressor where it suits him.
+- fix: encode always in UTF-8 mode (as we expect all data to be delivered in that 'codepage')
+- now only works with PHP5 (with or without strict warnings enabled); no more PHP4 support
+- the compressor may want to send certain HTTP headers; these are delayed and collected in the object and you can fetch and transmit them by invoking the get_headers() method from user code. When the 'echo2stdout' option is set (TRUE), then the headers will only be transmitted when PHP indicates this is still possible to prevent the otherwise resulting PHP error messages from poluting the output.
+
+
 **** v 0.8.2 ****
 - Change back to remove the speed optimization for highlight process introduced in 0.8.1 that has too much bugs
 - Syntax name are no more stored in language files but in syntax files. Thoses display names will be used only if the compressor tools is used, otherwise syntax code is displayed
