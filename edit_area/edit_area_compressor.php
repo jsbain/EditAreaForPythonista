@@ -140,7 +140,7 @@ if (!empty($argv[0]) && stristr($argv[0], '.php') !== false &&
 			}
 			else
 			{
-				if (!empty($this->param['verbose2stdout'])) echo "\n\n\nGenrating output WITHOUT plugins\n";
+				if (!empty($this->param['verbose2stdout'])) echo "\n\n\nGenerating output WITHOUT plugins\n";
 				$this->load_all_plugins= false;
 				$this->full_cache_file= $this->path."edit_area_full.js";
 				$this->gzip_cache_file= $this->path."edit_area_full.gz";
