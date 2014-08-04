@@ -147,8 +147,8 @@ pre{
 	/*
 	with Safari, this produces an eye-watering 'echo'
 	*/
-	opacity: 0.2;
-	filter:alpha(opacity=20);
+	opacity: 0.0;
+	filter:alpha(opacity=0);
 }
 
 #result .edit_area_cursor{
