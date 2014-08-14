@@ -66,7 +66,7 @@ class ed(object):
             ext=os.path.splitext(filename)[1][1:]
             syntax=syntaxes[ext]
         except(KeyError):
-            print ext
+            #print ext
             syntax='robotstxt'
         return syntax
 

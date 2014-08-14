@@ -5,7 +5,9 @@
 			this.open_inline_popup("area_search_replace");
 			var text= this.area_get_selection();
 			var search= text.split("\n")[0];
-			_$("area_search").value= search;
+			this.textarea.blur();
+			
+			_$("area_search").value=" " +search;
 			_$("area_search").focus();
 		}
 	};
