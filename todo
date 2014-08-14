@@ -1,7 +1,6 @@
 def helpme():
     Todo... Python ui to determine orientation change, keyboard present, etc, and resize textarea
     figure out why sometimes text doesn't select, can't edit until changing focus
-    Detection of file type on open, load appropriate syntax.
     Consider javascript file open/save, which call pythin callbacks through custom url. This would enable multiple file tabs.
-     Shellista plugin 
+
      
