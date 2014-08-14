@@ -11,9 +11,11 @@
 #        shellista plugin
 #        investigate alternate editors
 #        auto resize on orientation change and keyboard show/hide
-import ui, os, uidir, json, sys, editor
+#__package__ = 'plugins.extensions'
+import ui, os, uidir, json, sys, editor, inspect
 from console import hud_alert
 from functools import partial
+
 
 class ed(object):
     def edopen(self,sender):
@@ -72,7 +74,13 @@ class ed(object):
 
     def initView(self,filename=None):
         '''setup the View.  if filename is omitted, open current file in editor'''
-        e=ui.load_view('ed')
+        #print os.path.abspath(__file__)
+        #shname=inspect.getfile(inspect.getouterframes(inspect.currentframe())[-1])
+
+        p= os.path.dirname(inspect.stack()[-1][1])
+        s=  os.path.join(p,os.path.splitext(__file__)[0])
+        e=ui.load_view(s)
+        # e=ui.load_view(os.path.splitext(__file__)[0])
         e['loadbutton'].action=self.edopen
         e['savebutton'].action=self.edsave
         e['selectbutton'].action=self.edselect
